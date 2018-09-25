@@ -5,10 +5,19 @@ class IndexController
 {
     public function index()
     {
-        // views/index/index.html
-        view('index/index', [
-            'name' => 'tom',
-            'age' => 10,
-        ]);
+        view('index/index');
+    }
+    public function top()
+    {
+        view('index/top');
+    }
+    public function menu()
+    {
+        view('index/menu');
+    }
+    public function main()
+    {
+        view('index/main');
+
     }
 }
