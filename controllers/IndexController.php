@@ -5,6 +5,10 @@ class IndexController
 {
     public function index()
     {
-        echo 'index.index';
+        // views/index/index.html
+        view('index/index', [
+            'name' => 'tom',
+            'age' => 10,
+        ]);
     }
 }

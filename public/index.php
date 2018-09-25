@@ -2,6 +2,9 @@
 
 define('ROOT', __DIR__ . '/../');
 
+// 引入函数文件
+require(ROOT.'libs/functions.php');
+
 /**
  * 类的自动加载
  */
