@@ -28,7 +28,7 @@ class CodeController
         file_put_contents(ROOT.'models/'.$mname.'.php', "<?php\r\n".$str);
 
         // 4. 生成视图文件
-        // 生成 视图目录
+        // 生成视图目录
         @mkdir(ROOT . 'views/'.$tableName, 0777);
 
         // 取出这个表中所有的字段信息

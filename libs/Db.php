@@ -1,4 +1,9 @@
 <?php
+/*
+执行最底的SQL语句
+：预处理方式： prepare
+：非预处理方式：exec
+*/
 namespace libs;
 
 class Db
@@ -24,8 +29,15 @@ class Db
         return self::$_obj;
     }
 
+    // 预处理
     public function prepare($sql)
     {
         return $this->_pdo->prepare($sql);        
+    }
+
+    // 非预处理执行SQL
+    public function exec($sql)
+    {
+        return $this->_pdo->exec($sql);
     }
 }
