@@ -33,7 +33,7 @@ namespace models;
         $keys=[];
         $values=[];
         $token=[];
-        foreach($data as $k => $v)
+        foreach($this->data as $k => $v)
         {
             $keys[] = $k;
             $values[] = $v;
