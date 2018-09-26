@@ -31,16 +31,33 @@ class CodeController
         // 生成 视图目录
         @mkdir(ROOT . 'views/'.$tableName, 0777);
 
+        // 取出这个表中所有的字段信息
+        $sql = "SHOW FULL FIELDS FROM $tableName";
+        $db = \libs\Db::make();
+        // 预处理
+        $stmt = $db->prepare($sql);
+        // 执行 SQL
+        $stmt->execute();
+        // 取出数据
+        $fields = $stmt->fetchAll( \PDO::FETCH_ASSOC );
+
+        // echo '<pre>';
+        // var_dump( $fields );
+
+        // exit;
+
         // create.html
         ob_start();
         include(ROOT . 'templates/create.html');
         $str = ob_get_clean();
         file_put_contents(ROOT.'views/'.$tableName.'/create.html', $str);
+
         // edit.html
         ob_start();
         include(ROOT . 'templates/edit.html');
         $str = ob_get_clean();
         file_put_contents(ROOT.'views/'.$tableName.'/edit.html', $str);
+
         // index.html
         ob_start();
         include(ROOT . 'templates/index.html');

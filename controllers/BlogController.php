@@ -1,18 +1,17 @@
 <?php
 namespace controllers;
 
-class CategoryController
-{
+class BlogController{
     // 列表页
     public function index()
     {
-        view('category/index');
+        view('blog/index');
     }
 
     // 显示添加的表单
     public function create()
     {
-        view('category/create');
+        view('blog/create');
     }
 
     // 处理添加表单
@@ -24,7 +23,7 @@ class CategoryController
     // 显示修改的表单
     public function edit()
     {
-        view('category/edit');
+        view('blog/edit');
     }
 
     // 修改表单的方法

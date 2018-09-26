@@ -9,7 +9,7 @@ class Db
     private $_pdo;
     private function __construct(){
         // 连接数据库
-        $this->_pdo = new \PDO('mysql:dbhost=127.0.0.1;dbname=jxshop', 'root', '123123');
+        $this->_pdo = new \PDO('mysql:host=127.0.0.1;dbname=jxshop', 'root', '123456');
         // 设置编码
         $this->_pdo->exec('SET NAMES utf8');
     }
@@ -22,5 +22,10 @@ class Db
             self::$_obj = new self;
         }
         return self::$_obj;
+    }
+
+    public function prepare($sql)
+    {
+        return $this->_pdo->prepare($sql);        
     }
 }
