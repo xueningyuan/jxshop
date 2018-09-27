@@ -25,13 +25,24 @@ use PDO;
      * ];
      */
 
-     public function __construct()
-     {
+    public function __construct()
+    {
         $this->_db = \libs\Db::make();
-     }
+    }
 
-     public function insert()
-     {
+    /**
+     * 钩子函数
+     */
+
+    protected function _before_write(){}
+    protected function _after_write(){}
+    protected function _before_delete(){}
+    protected function _after_delete(){}
+
+    public function insert()
+    {
+        $this->_before_write();
+
         $keys=[];
         $values=[];
         $token=[];
@@ -47,12 +58,15 @@ use PDO;
 
         // echo $sql;die;
         $stmt = $this->_db->prepare($sql);
-        return $stmt->execute($values);
-     }
+        $stmt->execute($values);
+        $this->data['id'] = $this->_db->lastInsertId();
+
+        $this->_after_write();
+    }
 
      // 接收表单中的数据
-     public function fill($data)
-     {
+    public function fill($data)
+    {
         // 判断是否在白名单中
         foreach($data as $k => $v)
         {
@@ -62,10 +76,12 @@ use PDO;
             }
         }
         $this->data = $data;
-     }
+    }
 
     public function update($id)
     {
+        $this->_before_write();
+
         $set = [];
         $token = [];
 
@@ -83,13 +99,16 @@ use PDO;
         $sql = "UPDATE {$this->table} SET $set WHERE id=?";
 
         $stmt = $this->_db->prepare($sql);
-        return $stmt->execute($values);
+        $stmt->execute($values);
+        $this->_after_write();
     }
 
     public function delete($id)
     {
+        $this->_before_delete();
         $stmt = $this->_db->prepare("DELETE FROM {$this->table} WHERE id=?");
-        return $stmt->execute([$id]);
+        $stmt->execute([$id]);
+        $this->_after_delete();
     }
 
     public function findAll($options = [])

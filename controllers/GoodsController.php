@@ -1,38 +1,38 @@
 <?php
 namespace controllers;
 
-use models\Blog;
+use models\Goods;
 
-class BlogController{
+class GoodsController{
     // 列表页
     public function index()
     {
-        $model = new Blog;
+        $model = new Goods;
         $data = $model->findAll();
-        view('blog/index', $data);
+        view('goods/index', $data);
     }
 
     // 显示添加的表单
     public function create()
     {
-        view('blog/create');
+        view('goods/create');
     }
 
     // 处理添加表单
     public function insert()
     {
-        $model = new Blog;
+        $model = new Goods;
         $model->fill($_POST);
         $model->insert();
-        redirect('/blog/index');
+        redirect('/goods/index');
     }
 
     // 显示修改的表单
     public function edit()
     {
-        $model = new Blog;
+        $model = new Goods;
         $data=$model->findOne($_GET['id']);
-        view('blog/edit', [
+        view('goods/edit', [
             'data' => $data,    
         ]);
     }
@@ -40,17 +40,17 @@ class BlogController{
     // 修改表单的方法
     public function update()
     {
-        $model = new Blog;
+        $model = new Goods;
         $model->fill($_POST);
         $model->update($_GET['id']);
-        redirect('/blog/index');
+        redirect('/goods/index');
     }
 
     // 删除
     public function delete()
     {
-        $model = new Blog;
+        $model = new Goods;
         $model->delete($_GET['id']);
-        redirect('/blog/index');
+        redirect('/goods/index');
     }
 }
