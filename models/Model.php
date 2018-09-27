@@ -152,10 +152,14 @@ use PDO;
         $pageCount = ceil($count/$_option['per_page']);
 
         $page_str = '';
-        for($i=1;$i<=$pageCount;$i++)
+        if($pageCount>1)
         {
-            $page_str .= '<a href="?page='.$i.'">'.$i.'</a> ';
+            for($i=1;$i<=$pageCount;$i++)
+            {
+                $page_str .= '<a href="?page='.$i.'">'.$i.'</a> ';
+            }
         }
+        
 
         return [
             'data' => $data,
