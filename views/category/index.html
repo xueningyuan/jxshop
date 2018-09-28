@@ -23,9 +23,10 @@
                         <th>所有上级分类的ID</th>
                         <th>操作</th>
         </tr>
-        <?php foreach($data as $v): ?>        <tr>
+        <?php foreach($data as $v): ?>        
+        <tr>
                         <td><?=$v['id']?></td>
-                        <td><?=$v['cat_name']?></td>
+                        <td><?= str_repeat('&nbsp;', 8*(count(explode('-', $v['path']))-2)) . $v['cat_name']?></td>
                         <td><?=$v['parent_id']?></td>
                         <td><?=$v['path']?></td>
                         <td>
