@@ -7,11 +7,11 @@ class Brand extends Model
     protected $table = 'brand';
     // 设置允许接收的字段
     protected $fillable = ['brand_name','logo'];
-    // 会在添加、修改之前自动被调用
+    
+    // 会在添加、修改之前自动被调用（钩子函数：定义好之后自动被调用）
     public function _before_write()
     {
         $this->_delete_logo();
-
         // 实现上传图片的代码
         $uploader = \libs\Uploader::make();
         $logo = '/uploads/' . $uploader->upload('logo', 'brand');
@@ -19,11 +19,13 @@ class Brand extends Model
         // 把 logo 加到数组中，就可以插入到数据库
         $this->data['logo'] = $logo;   
     }
-    // 删除之前被调用
+
+    // 删除之前被调用（钩子函数：定义好之后自动被调用）
     public function _before_delete()
     {
         $this->_delete_logo();
     }
+
     protected function _delete_logo()
     {
         // 如果是修改就删除原图片
