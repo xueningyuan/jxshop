@@ -100,6 +100,7 @@ use PDO;
 
         $stmt = $this->_db->prepare($sql);
         $stmt->execute($values);
+
         $this->_after_write();
     }
 
