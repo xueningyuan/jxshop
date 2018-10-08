@@ -1,38 +1,38 @@
 <?php
 namespace controllers;
 
-use models\Brand;
+use models\Admin;
 
-class BrandController{
+class AdminController{
     // 列表页
     public function index()
     {
-        $model = new Brand;
+        $model = new Admin;
         $data = $model->findAll();
-        view('brand/index', $data);
+        view('admin/index', $data);
     }
 
     // 显示添加的表单
     public function create()
     {
-        view('brand/create');
+        view('admin/create');
     }
 
     // 处理添加表单
     public function insert()
     {
-        $model = new Brand;
+        $model = new Admin;
         $model->fill($_POST);
         $model->insert();
-        redirect('/brand/index');
+        redirect('/admin/index');
     }
 
     // 显示修改的表单
     public function edit()
     {
-        $model = new Brand;
+        $model = new Admin;
         $data=$model->findOne($_GET['id']);
-        view('brand/edit', [
+        view('admin/edit', [
             'data' => $data,    
         ]);
     }
@@ -40,17 +40,17 @@ class BrandController{
     // 修改表单的方法
     public function update()
     {
-        $model = new Brand;
+        $model = new Admin;
         $model->fill($_POST);
         $model->update($_GET['id']);
-        redirect('/brand/index');
+        redirect('/admin/index');
     }
 
     // 删除
     public function delete()
     {
-        $model = new Brand;
+        $model = new Admin;
         $model->delete($_GET['id']);
-        redirect('/brand/index');
+        redirect('/admin/index');
     }
 }
