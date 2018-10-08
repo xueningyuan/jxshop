@@ -136,7 +136,25 @@ insert into privilege(id,pri_name,url_path,parent_id) VALUES
     (6,'品牌列表','brand/index',1),
         (7,'添加品牌','brand/create,brand/insert',6),
         (8,'修改品牌','brand/edit,brand/update',6),
-        (9,'删除品牌','brand/delete',6);
+        (9,'删除品牌','brand/delete',6),
+    (10,'商品列表','goods/index',1),
+        (11,'添加商品','goods/create,goods/insert',10),
+        (12,'修改商品','goods/edit,goods/update',10),
+        (13,'删除商品','goods/delete',10),
+        (27,'AJAX获取分类','goods/ajax_get_cat',10),
+(14,'管理员模块','',0),
+    (15,'权限列表','privilege/index',14),
+        (16,'添加权限','privilege/create,privilege/insert',15),
+        (17,'修改权限','privilege/edit,privilege/update',15),
+        (18,'删除权限','privilege/delete',15),
+    (19,'角色列表','role/index',14),
+        (20,'添加角色','role/create,role/insert',19),
+        (21,'修改角色','role/edit,role/update',19),
+        (22,'删除角色','role/delete',19),
+    (23,'管理员列表','admin/index',14),
+        (24,'添加管理员','admin/create,admin/insert',23),
+        (25,'修改管理员','admin/edit,admin/update',23),
+        (26,'删除管理员','admin/delete',23);
 
 insert into role_privlege(pri_id,role_id) VALUES
 (6,2),

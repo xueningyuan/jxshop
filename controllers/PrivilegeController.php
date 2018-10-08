@@ -8,8 +8,10 @@ class PrivilegeController{
     public function index()
     {
         $model = new Privilege;
-        $data = $model->findAll();
-        view('privilege/index', $data);
+        $data = $model->tree();
+        view('privilege/index', [
+            'data'=>$data
+        ]);
     }
 
     // 显示添加的表单
