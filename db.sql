@@ -116,7 +116,7 @@ create table admin_role
     admin_id int unsigned not null comment '管理员ID',
     key role_id(role_id),
     key admin_id(admin_id)
-)engine=InnoDB comment='管理员表';
+)engine=InnoDB comment='管理员角色表';
 
 drop table if exists admin;
 create table admin
