@@ -29,7 +29,7 @@
                         <input type="radio" name="<?=$v['Field']?>" value="y" <?='<?php if($data[\''.$v['Field'].'\'] == \'y\') echo \'checked\'; ?>';?>> 是
                         <input type="radio" name="<?=$v['Field']?>" value="n" <?='<?php if($data[\''.$v['Field'].'\'] == \'n\') echo \'checked\'; ?>';?>> 否
                     <?php else: ?>
-                        <input type='text' size="80" name='<?=$v['Field']?>' value='<?='<?=$data[\''.$v['Field'].'\']?>';?>'>
+                        <input type='text' size="80" name='<?=$v['Field']?>' value='<?='<?=$data[\''.trim($v['Field']).'\']?>';?>'>
                     <?php endif; ?>
                     <font color="red">*</font>
                 </td>

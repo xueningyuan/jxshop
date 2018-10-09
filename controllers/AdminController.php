@@ -8,7 +8,11 @@ class AdminController extends BaseController{
     public function index()
     {
         $model = new Admin;
-        $data = $model->findAll();
+        $data = $model->findAll([
+            'fields'=>'a.*,GROUP_CONCAT(c.role_name) role_list',
+            'join'=>' a LEFT JOIN admin_role b ON a.id=b.admin_id LEFT JOIN role c ON b.role_id=c.id ',
+            'groupby'=>' GROUP BY a.id ',
+        ]);
         view('admin/index', $data);
     }
 

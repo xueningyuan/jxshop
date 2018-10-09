@@ -64,4 +64,13 @@ class Admin extends Model
         $_SESSION = [];
         session_destroy();
     }
+
+    // 在删除之前执行
+    protected function _before_delete()
+    {
+        $stmt = $this->_db->prepare("delete from admin_role where admin_id=?");
+        $stmt->execute([
+            $_GET['id']
+        ]);
+    }
 }
