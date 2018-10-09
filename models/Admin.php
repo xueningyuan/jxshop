@@ -52,6 +52,16 @@ class Admin extends Model
         {
             $_SESSION['id'] = $info['id'];
             $_SESSION['username'] = $info['username'];
+            
+            // 查看该管理员是否有一个角色ID=1
+            $stmt = $this->_db->prepare('SELECT COUNT(*) FROM admin_role WHERE role_id=1 AND admin_id=?');
+            $stmt->execute([$_SESSION['id']]);
+            $c = $stmt->fetch(\PDO::FETCH_COLUMN);
+            if($c>0)
+                $_SESSION['root'] = true;
+            else
+                // 取出这个管理员有限访问的路径
+                $_SESSION['url_path'] = $this->getUalPath($_SESSION['id']);
         }
         else
         {
@@ -72,5 +82,42 @@ class Admin extends Model
         $stmt->execute([
             $_GET['id']
         ]);
+    }
+
+    // 获取一个管理员有权访问的路径
+    public function getUalPath($adminId)
+    {
+        $sql = "SELECT c.url_path
+                    FROM admin_role a 
+                    LEFT JOIN role_privlege b ON a.role_id=b.role_id
+                    LEFT JOIN privilege c ON b.pri_id=c.id
+                    WHERE a.admin_id=? AND c.url_path!=''";
+        $stmt = $this->_db->prepare($sql);
+        $stmt->execute([$adminId]);
+        $data = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
+
+        // 把二维数组转成一维数组
+        $_ret = [];
+
+        foreach($data as $v)
+        {
+            // 判断是否有多个URL（包含,）
+            if(FALSE === strpos($v['url_path'], ','))
+            {
+                // 如果没有,，就直接拿过来
+                $_ret[] = $v['url_path'];
+            }
+            else
+            {
+                // 如果有，，就转成数组
+                $_tt = explode(',', $v['url_path']);
+                // 把转完之后的数组合并到一维数组中
+                $_ret = array_merge($_ret, $_tt);
+            }
+            
+        }
+
+        return $_ret;
     }
 }
