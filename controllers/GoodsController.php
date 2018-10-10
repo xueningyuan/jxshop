@@ -47,10 +47,19 @@ class GoodsController extends BaseController{
     // 显示修改的表单
     public function edit()
     {
+        // 获取商品完整信息
         $model = new Goods;
-        $data=$model->findOne($_GET['id']);
+        $data=$model->getFullInfo($_GET['id']);
+
+        // echo '<pre>';
+        // var_dump( $data );
+        // 取出一级分类
+        $model = new \models\Category;
+        $topCat = $model->getCat();
+
         view('goods/edit', [
-            'data' => $data,    
+            'data' => $data,  
+            'topCat' => $topCat['data'],
         ]);
     }
 
