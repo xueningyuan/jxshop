@@ -193,6 +193,7 @@ insert into admin_role(role_id,admin_id) VALUES
 insert into admin(id,username,password) VALUES
 (1,'root','21232f297a57a5a743894a0e4a801fc3'),
 (2,'tom','21232f297a57a5a743894a0e4a801fc3'),
+
 (3,'jack','21232f297a57a5a743894a0e4a801fc3'),
 (4,'lilei','21232f297a57a5a743894a0e4a801fc3');
 
@@ -216,3 +217,5 @@ create table article
     article_category_id int unsigned not null comment '关联的分类ID',
     primary key (id)
 )engine=InnoDB comment='文章表';
+
+# 我是yinrui
