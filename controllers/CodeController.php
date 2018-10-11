@@ -31,15 +31,25 @@ class CodeController extends BaseController
 
         $sid = $id+1;
 
-        $ssql = "insert into privilege(pri_name,url_path,parent_id) values    
-        ('{$pri_list}列表','{$tableName}/index',$id),
-            ('添加{$pri_list}','{$tableName}/create,{$tableName}/insert',$sid),
-            ('删除{$pri_list}','{$tableName}/delete',$sid),
-            ('修改{$pri_list}','{$tableName}/edit,{$tableName}/update',$sid)";
+        $stmt = $db->prepare("SELECT id FROM privilege WHERE pri_name=?");
+        $stmt->execute([
+            $pri_list.'列表'
+        ]);
+        $li = $stmt->fetch( \PDO::FETCH_ASSOC );
         
-        $psm = $db->exec($ssql);
+        if(!$li){
+            $ssql = "insert into privilege(pri_name,url_path,parent_id) values    
+            ('{$pri_list}列表','{$tableName}/index',$id),
+                ('添加{$pri_list}','{$tableName}/create,{$tableName}/insert',$sid),
+                ('删除{$pri_list}','{$tableName}/delete',$sid),
+                ('修改{$pri_list}','{$tableName}/edit,{$tableName}/update',$sid)";
+            
+            $psm = $db->exec($ssql);
+        }else{
+            echo "列表重复，不可重复添加";
+            return;
+        }
 
-        exit;
         // 取出这个表中所有的字段信息
         $sql = "SHOW FULL FIELDS FROM $tableName";
         
