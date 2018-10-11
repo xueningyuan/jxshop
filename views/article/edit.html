@@ -6,52 +6,104 @@
 <link href="/Styles/general.css" rel="stylesheet" type="text/css" />
 <link href="/Styles/main.css" rel="stylesheet" type="text/css" />
 </head>
-<body>
-<h1>
-    <span class="action-span"><a href="/article/index">数据列表</a></span>
-    <span class="action-span1"><a href="__GROUP__">管理中心</a></span>
-    <span id="search_id" class="action-span1"> - 修改数据 </span>
-    <div style="clear:both"></div>
-</h1>
-<div class="main-div">
-    <form action="/article/update?id=<?=$data['id']?>" method="post" enctype="multipart/form-data">
-        <table width="100%" id="general-table">
-                        <tr>
-                <td class="label">标题:</td>
-                <td>
-                                            <input type='text' size="80" name='title' value='<?=$data['title']?>'>
-                                        <font color="red">*</font>
-                </td>
-            </tr>
-                        <tr>
-                <td class="label">文章内容:</td>
-                <td>
-                                            <textarea name="content" id="" cols="80" rows="10"><?=$data['content']?></textarea>
-                                        <font color="red">*</font>
-                </td>
-            </tr>
-                        <tr>
-                <td class="label">跳转的地址:</td>
-                <td>
-                                            <input type='text' size="80" name='link' value='<?=$data['link']?>'>
-                                        <font color="red">*</font>
-                </td>
-            </tr>
-                        <tr>
-                <td class="label">关联的分类ID:</td>
-                <td>
-                                            <input type='text' size="80" name='article_category_id' value='<?=$data['article_category_id']?>'>
-                                        <font color="red">*</font>
-                </td>
-            </tr>
-                    </table>
-        <div class="button-div">
-            <input type="submit" value=" 确定 " />
-            <input type="reset" value=" 重置 " />
-        </div>
-    </form>
-</div>
 
-<?=view('common/footer')?>
+<body>
+    <h1>
+        <span class="action-span">
+            <a href="/article/index">数据列表</a>
+        </span>
+        <span class="action-span1">
+            <a href="__GROUP__">管理中心</a>
+        </span>
+        <span id="search_id" class="action-span1"> - 修改数据 </span>
+        <div style="clear:both"></div>
+    </h1>
+    <div class="main-div">
+        <form action="/article/update?id=<?=$data['id']?>" method="post" enctype="multipart/form-data">
+            <table width="100%" id="general-table">
+                <tr>
+                    <td class="label">标题:</td>
+                    <td>
+                        <input type='text' size="80" name='title' value='<?=$data['title']?>'>
+                        <font color="red">*</font>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">文章内容:</td>
+                    <td>
+                        <textarea name="content" id="content" cols="80" rows="10"><?=$data['content']?></textarea>
+                        <font color="red">*</font>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">跳转的地址:</td>
+                    <td>
+                        <input type='text' size="80" name='link' value='<?=$data['link']?>'>
+                        <font color="red">*</font>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">关联的分类ID:</td>
+                    <td>
+                        <select name="article_category_id">
+                            <option value="">选择分类</option>
+                            <?php foreach($category['data'] as $v): ?>
+                            <option <?php if($v[ 'id']== $data[ 'article_category_id']) echo "selected";?> value="<?=$v['id']?>">
+                                    <?=$v['cat_name']?>
+                            </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+            <div class="button-div">
+                <input type="submit" value=" 确定 " />
+                <input type="reset" value=" 重置 " />
+            </div>
+        </form>
+    </div>
+
+    <?=view('common/footer')?>
 </body>
+
 </html>
+<link rel="stylesheet" type="text/css" href="/simditor-2.3.6/styles/simditor.css" />
+
+<script type="text/javascript" src="/simditor-2.3.6/scripts/jquery.min.js"></script>
+<script type="text/javascript" src="/simditor-2.3.6/scripts/module.js"></script>
+<script type="text/javascript" src="/simditor-2.3.6/scripts/hotkeys.js"></script>
+<script type="text/javascript" src="/simditor-2.3.6/scripts/uploader.js"></script>
+<script type="text/javascript" src="/simditor-2.3.6/scripts/simditor.js"></script>
+<script>
+    var editor = new Simditor({
+        textarea: $('#content'),
+        toolbar:[
+            'title',
+            'bold',
+            'italic',
+            'underline',
+            'strikethrough',
+            'fontScale',
+            'color',
+            'ol',       
+            'ul',
+            'blockquote',
+            'code',
+            'table',
+            'link',
+            'image',
+            'hr', 
+            'indent',
+            'outdent',
+            'alignment'
+        ],
+        upload:{
+            url:'/upload/upload',   // 服务器提交的地址
+            params:'null',
+            fileKey:'image',    // 服务器接收时的文件名
+            connectionCount:3,
+            leaveConfirm: '文件上传中，真要离开吗？'
+        }
+    });
+
+</script>

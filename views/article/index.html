@@ -5,6 +5,12 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link href="/Styles/general.css" rel="stylesheet" type="text/css" />
 <link href="/Styles/main.css" rel="stylesheet" type="text/css" />
+<style>
+    img {
+        width:100px;
+        height: 100px;
+    }
+</style>
 </head>
 <body>
 <h1>
@@ -31,7 +37,7 @@
                         <td><?=$v['content']?></td>
                         <td><?=$v['created_at']?></td>
                         <td><?=$v['link']?></td>
-                        <td><?=$v['article_category_id']?></td>
+                        <td><?=$v['cat_name']?></td>
                         <td>
                 <a href="/article/edit?id=<?=$v['id']?>">修改</a>
                 <a onclick="return confirm('确定要删除吗？');" href="/article/delete?id=<?=$v['id']?>">删除</a>
