@@ -2,16 +2,47 @@
 namespace controllers;
 
 class CodeController extends BaseController
-{
+{   
+    public function create(){
+
+        view("code/create");
+
+    }
     // 生成代码
     public function make()
-    {
+    {   
+        $db = \libs\Db::make();
+        $pri_list = $_POST['pri_name'];
         // 1. 接收参数（生成代码的表名）
-        $tableName = $_GET['name'];
+        $tableName = $_POST['tableName'];
+        $stmt = $db->prepare("SELECT id FROM privilege WHERE pri_name=?");
+        $stmt->execute([
+            $_POST['m_pri_name'].'模块'
+        ]);
+        $id = $stmt->fetch( \PDO::FETCH_ASSOC );
+        
+        if(!$id){
+            $sql = "insert into privilege(pri_name,url_path,parent_id) values ('{$_POST['m_pri_name']}模块','',0)";
+            $psm = $db->exec($sql);
+            $id = $db->lastinsertid();
+        }else{
+            $id = $id['id'];
+        }
 
+        $sid = $id+1;
+
+        $ssql = "insert into privilege(pri_name,url_path,parent_id) values    
+        ('{$pri_list}列表','{$tableName}/index',$id),
+            ('添加{$pri_list}','{$tableName}/create,{$tableName}/insert',$sid),
+            ('删除{$pri_list}','{$tableName}/delete',$sid),
+            ('修改{$pri_list}','{$tableName}/edit,{$tableName}/update',$sid)";
+        
+        $psm = $db->exec($ssql);
+
+        exit;
         // 取出这个表中所有的字段信息
         $sql = "SHOW FULL FIELDS FROM $tableName";
-        $db = \libs\Db::make();
+        
         // 预处理
         $stmt = $db->prepare($sql);
         // 执行 SQL
