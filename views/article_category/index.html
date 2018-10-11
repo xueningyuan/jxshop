@@ -8,7 +8,7 @@
 </head>
 <body>
 <h1>
-    <span class="action-span"><a href="/role/create">添加新记录</a></span>
+    <span class="action-span"><a href="/article_category/create">添加新记录</a></span>
     <span class="action-span1"><a href="__GROUP__">管理中心</a></span>
     <span id="search_id" class="action-span1"> - 数据列表 </span>
     <div style="clear:both"></div>
@@ -18,15 +18,15 @@
     <table cellpadding="3" cellspacing="1">
         <tr>
                         <th>ID</th>
-                        <th>角色名称</th>
+                        <th>分类名称</th>
                         <th>操作</th>
         </tr>
         <?php foreach($data as $v): ?>        <tr>
                         <td><?=$v['id']?></td>
-                        <td><?=$v['role_name']?></td>
+                        <td><?=$v['cat_name']?></td>
                         <td>
-                <a href="/role/edit?id=<?=$v['id']?>">修改</a>
-                <a onclick="return confirm('确定要删除吗？');" href="/role/delete?id=<?=$v['id']?>">删除</a>
+                <a href="/article_category/edit?id=<?=$v['id']?>">修改</a>
+                <a onclick="return confirm('确定要删除吗？');" href="/article_category/delete?id=<?=$v['id']?>">删除</a>
             </td>
         </tr>
         <?php endforeach; ?>    </table>
